@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,7 @@ public class Test : MonoBehaviour
     [SerializeField] private Button _playInterButton;
     [SerializeField] private Button _playRewardButton;
     [SerializeField] private Button _showBannerButton;
+    [SerializeField] private TMP_InputField _inputField;
 
     private YandexMobileAdsTest _yandexMobileAds;
 
@@ -28,7 +30,7 @@ public class Test : MonoBehaviour
         _showBannerButton.onClick.RemoveListener(OnShowBannerButton);
     }
 
-    private void OnPlayRewardButton() => _yandexMobileAds.ShowRewardedAd();
-    private void OnShowBannerButton() => _yandexMobileAds.ShowBanner();
-    private void OnPlayInterButton() => _yandexMobileAds.ShowInterstitial();
+    private void OnPlayRewardButton() => _yandexMobileAds.ShowRewardedAd(_inputField.text);
+    private void OnShowBannerButton() => _yandexMobileAds.ShowBanner(_inputField.text);
+    private void OnPlayInterButton() => _yandexMobileAds.ShowInterstitial(_inputField.text);
 }
