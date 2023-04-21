@@ -19,9 +19,9 @@ public class YandexMobileAdsTest
     public void ShowBanner(string id)
     {
         if (_banner != null)
-            return;
+            _banner.Destroy();
         
-        MobileAds.SetAgeRestrictedUser(true); //Sets COPPA restriction for user age under 13
+        MobileAds.SetAgeRestrictedUser(true);
 
         AdSize bannerMaxSize = AdSize.FlexibleSize(GetScreenWidthDp(), 100);
         _banner = new Banner(id, bannerMaxSize, AdPosition.BottomCenter);
@@ -36,7 +36,7 @@ public class YandexMobileAdsTest
         if (_interstitialLoading)
             return;
         
-        MobileAds.SetAgeRestrictedUser(true); //Sets COPPA restriction for user age under 13
+        MobileAds.SetAgeRestrictedUser(true);
 
         _interstitial ??= new Interstitial(id);
         
@@ -47,15 +47,15 @@ public class YandexMobileAdsTest
         _interstitial.LoadAd(CreateAdRequest());
         _interstitialLoading = true;
     }
-    
+
     public void ShowRewardedAd(string id)
     {
         if (_rewardedLoading)
             return;
         
-        MobileAds.SetAgeRestrictedUser(true); //Sets COPPA restriction for user age under 13
+        MobileAds.SetAgeRestrictedUser(true);
 
-        _rewardedAd ??= new RewardedAd(id);
+        _rewardedAd = new RewardedAd(id);
 
         _rewardedAd.OnRewardedAdLoaded += HandleRewardedAdLoaded;
         _rewardedAd.OnRewardedAdFailedToShow += (sender, args) => Debug.Log("Rewarded failed to show: " + args.Message);
@@ -90,6 +90,6 @@ public class YandexMobileAdsTest
         int screenWidth = (int)Screen.safeArea.width;
         return ScreenUtils.ConvertPixelsToDp(screenWidth);
     }
-    
+
     private AdRequest CreateAdRequest() => new AdRequest.Builder().Build();
 }
